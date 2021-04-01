@@ -36,17 +36,17 @@ let questions = [
         ]
     },
 
-    // {
-    //     id: 4,
-    //     question: "What is the full form of HTML?",
-    //     ans: "Hypertext Markup Language",
-    //     options: [
-    //         "Hey Text Markup Language",
-    //         "HyperText Markup Language",
-    //         "Hypertext Markup Language",
-    //         "Hypertext Markup Locator",
-    //     ]
-    // },
+    {
+        id: 4,
+        question: "What is the full form of HTML?",
+        ans: "Hypertext Markup Language",
+        options: [
+            "Hey Text Markup Language",
+            "HyperText Markup Language",
+            "Hypertext Markup Language",
+            "Hypertext Markup Locator",
+        ]
+    },
     // {
     //     id: 5,
     //     question: "What does CSS stands for?",
@@ -131,9 +131,11 @@ let points = 0;
 function next() {
     let useranswer = document.querySelector(".active .answerText").innerHTML;
     if (useranswer == questions[ques_count].ans) {
+        console.log("right answer");
         points += 10;
-        console.log("Your points are ",`${points}`)
         sessionStorage.setItem("points", points);
+    } else {
+        console.log("wrong answer");
     }
     if (ques_count == questions.length - 1) {
         sessionStorage.setItem("time", `${minutes}minutes and ${seconds}seconds`)
@@ -144,41 +146,47 @@ function next() {
     // console.log(questions[ques_count].ans,useranswer);
     // console.log(useranswer.length,questions[ques_count].ans.length)
     //verifying answers//aa
-    console.log(points);
+    // console.log(points);
 
     ques_count++;
     show(ques_count);
 
+}
+function prev() {
+    ques_count--;
+    show(ques_count);
 }
 
 
 function show(count) {
     let question = document.getElementById("questions");
 
-    question.innerHTML = `<h2>Q${[ques_count + 1]}${questions[count].question}</h2>
+    question.innerHTML = `<h2>Q${ques_count+1}.${questions[count].question}</h2>
 <ul class="optiongroup list-unstyled">
 <li class="option">
     <input type="radio" name="answer" id="ans1" class="answer">
-    <label class="answerText">${questions[count].options[0]}
+    <label class="answerText">${questions[count].options[0]}</label>
 </li>
 <li class="option">
     <input type="radio" name="answer" id="ans2" class="answer">
-    <label class="answerText">${questions[count].options[1]}
+    <label class="answerText">${questions[count].options[1]}</label>
     </li>
 </li>
 <li class="option">
     <input type="radio" name="answer" id="ans3" class="answer">
-    <label class="answerText">${questions[count].options[2]}
+    <label class="answerText">${questions[count].options[2]}</label>
     </li>
 </li>
 <li class="option">
     <input type="radio" name="answer" id="ans4" class="answer">
-    <label class="answerText">${questions[count].options[3]}
+    <label class="answerText">${questions[count].options[3]}</label>
     </li>
 </li>
 </ul> 
 `;
     toggleActive();
+
+
 }
 
 function toggleActive() {
